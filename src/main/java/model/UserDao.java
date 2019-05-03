@@ -15,11 +15,12 @@ public class UserDao {
     public UserDao() {
         init();
     }
+
     private void init() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/"+databaseName+"?useSSL=false", user, password);
-        } catch(Exception e) {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/" + databaseName + "?useSSL=false", user, password);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -44,4 +45,24 @@ public class UserDao {
         }
         return users;
     }
+
+    public void createUser(User user) {
+        PreparedStatement statement;
+        try {
+            String query = "insert into " + tableName + " (name, lastname, age) values(?, ?, ?)";
+            statement = connection.prepareStatement(query);
+
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getLastname());
+            statement.setInt(3, user.getAge());
+
+            statement.execute();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

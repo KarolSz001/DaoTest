@@ -9,6 +9,19 @@ public class User {
         this.lastname = lastname;
         this.age = age;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
     @Override
     public String toString() {
         return "User{" +
