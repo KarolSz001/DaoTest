@@ -97,6 +97,23 @@ public class UserDao {
 
     }
 
+    public void updateUser(User user){
+        PreparedStatement statement;
+        try{
+            String query = "update" + tableName + "set name = ?, lastname = ?, age = ? where id=?";
+            statement = connection.prepareStatement(query);
+            statement.setString(1,user.getName());
+            statement.setString(2,user.getName());
+            statement.setString(3,user.getName());
+            statement.setString(4,user.getName());
+
+            statement.execute();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

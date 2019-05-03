@@ -14,9 +14,8 @@ public class Main {
         createUser();
         UserDao userDao = new UserDao();
         System.out.println(userDao.getAllUsers());
-        System.out.println(" remove user by lastName , press lastName ");
-        String lastName = scanner.next();
-        userDao.deleteUser(lastName);
+        System.out.println(" give a last name to delete");
+        userDao.deleteUser(scanner.next());
         System.out.println(userDao.getAllUsers());
     }
 
@@ -25,12 +24,16 @@ public class Main {
 
         String name, lastname;
         Integer age;
+
         System.out.println("Type a name: ");
         name = scanner.next();
+
         System.out.println("Type a lastname: ");
         lastname = scanner.next();
+
         System.out.println("Type your age: ");
         age = scanner.nextInt();
+
         User user = new User(name, lastname, age);
 
         userDao.createUser(user);
