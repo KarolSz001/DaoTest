@@ -1,8 +1,11 @@
 package model;
 
+import exception.MyUncheckedException;
+
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDao {
 
@@ -63,6 +66,38 @@ public class UserDao {
         }
 
     }
+
+
+    public void deleteUser (String lastname){
+        if( lastname == null || lastname == ""){
+            throw new MyUncheckedException(" Bad input data");
+        }
+
+        List<User> userList = getAllUsers();
+        Optional<User> optionalUser =  userList.stream().filter(f->f.getLastname().equals(lastname)).findFirst();
+        if(optionalUser.isPresent()){
+            PreparedStatement statement;
+            try {
+
+                String query = "delete from " + tableName + " where lastname=?";
+                statement = connection.prepareStatement(query);
+
+                statement.setString(1, lastname);
+
+                statement.execute();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else{
+            throw new MyUncheckedException(" there is no User with " + lastname + " in database");
+        }
+
+    }
+
+
 
 
 }

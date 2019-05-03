@@ -14,6 +14,10 @@ public class Main {
         createUser();
         UserDao userDao = new UserDao();
         System.out.println(userDao.getAllUsers());
+        System.out.println(" remove user by lastName , press lastName ");
+        String lastName = scanner.next();
+        userDao.deleteUser(lastName);
+        System.out.println(userDao.getAllUsers());
     }
 
 
