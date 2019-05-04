@@ -14,6 +14,8 @@ public class Main {
         createUser();
         UserDao userDao = new UserDao();
         System.out.println(userDao.getAllUsers());
+        updateUser();
+
     }
 
 
@@ -44,4 +46,29 @@ public class Main {
         System.out.println("Multiply: " + Calculator.multiply(x, y));
         System.out.println("Divide: " + Calculator.divide(x, y));
     }
+
+    public static void updateUser() {
+
+        String lastname, name;
+        Integer id, age;
+
+        System.out.println(" Type user id to update: ");
+        id = scanner.nextInt();
+
+        System.out.println(" Type a new name: ");
+        name = scanner.next();
+
+        System.out.println(" Type a new lastname: ");
+        lastname = scanner.next();
+
+
+        System.out.println(" Type a new age: ");
+        age = scanner.nextInt();
+
+        User user = new User(id, name, lastname, age);
+        userDao.upDateUser(user);
+        System.out.println(" Update usera: " + user);
+    }
+
 }
+

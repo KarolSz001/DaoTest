@@ -36,7 +36,8 @@ public class UserDao {
                 String name = resultSet.getString("name");
                 String lastname = resultSet.getString("lastname");
                 Integer age = resultSet.getInt("age");
-                User user = new User(name, lastname, age);
+                Integer id  = resultSet.getInt("id");
+                User user = new User(id, name, lastname, age);
                 users.add(user);
             }
             statement.close();
@@ -58,6 +59,30 @@ public class UserDao {
 
             statement.execute();
             statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void upDateUser(User user){
+        PreparedStatement statement;
+
+        try {
+
+            String query = "update " + tableName + " set name = ?, lastname = ?, age = ? where id =?";
+
+
+            statement = connection.prepareStatement(query);
+
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getLastname());
+            statement.setInt(3, user.getAge());
+            statement.setInt(4, user.getId());
+
+            statement.execute();
+            statement.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
