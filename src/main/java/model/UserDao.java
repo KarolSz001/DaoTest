@@ -37,7 +37,7 @@ public class UserDao {
             String query = "select * from " + tableName;
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                Integer id  = resultSet.getInt("id");
+                Integer id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String lastname = resultSet.getString("lastname");
                 Integer age = resultSet.getInt("age");
@@ -65,7 +65,7 @@ public class UserDao {
             statement.setString(1, user.getName());
             statement.setString(2, user.getLastname());
             statement.setInt(3, user.getAge());
-            statement.setInt(4,roleId);
+            statement.setInt(4, roleId);
             System.out.println(roleId);
 
             statement.execute();
@@ -76,7 +76,7 @@ public class UserDao {
 
     }
 
-    public void upDateUser(User user){
+    public void upDateUser(User user) {
         PreparedStatement statement;
 
         try {
@@ -101,14 +101,14 @@ public class UserDao {
     }
 
 
-    public void deleteUser (String lastname){
-        if( lastname == null || lastname == ""){
+    public void deleteUser(String lastname) {
+        if (lastname == null || lastname == "") {
             throw new MyUncheckedException(" Bad input data");
         }
 
         List<User> userList = getAllUsers();
-        Optional<User> optionalUser =  userList.stream().filter(f->f.getLastname().equals(lastname)).findFirst();
-        if(optionalUser.isPresent()){
+        Optional<User> optionalUser = userList.stream().filter(f -> f.getLastname().equals(lastname)).findFirst();
+        if (optionalUser.isPresent()) {
             PreparedStatement statement;
             try {
 
@@ -123,21 +123,20 @@ public class UserDao {
                 e.printStackTrace();
             }
 
-        }
-        else{
+        } else {
             throw new MyUncheckedException(" there is no User with " + lastname + " in database");
         }
 
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) {
         PreparedStatement statement;
-        try{
+        try {
             String query = "update" + tableName + "set name = ?, lastname = ?, age = ? where id=?";
             statement = connection.prepareStatement(query);
-            statement.setString(1,user.getName());
-            statement.setString(2,user.getName());
-            statement.setString(3,user.getName());
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getName());
+            statement.setString(3, user.getName());
 
 
             statement.execute();
@@ -146,8 +145,6 @@ public class UserDao {
             e.printStackTrace();
         }
     }
-
-
 
 
 }
